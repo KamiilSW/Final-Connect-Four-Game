@@ -20,6 +20,10 @@
         Next
     End Sub
     Private Sub Button_Click(sender As Object, e As EventArgs)
+        PlaceCounter(sender)
+    End Sub
+
+    Sub PlaceCounter(sender As Object)
         Dim clickedButton As Button = CType(sender, Button)
 
         If TextBox1.Text = "Red" Then
@@ -41,27 +45,27 @@
         End If
     End Sub
 
-    Function PlaceCounter(ByRef gridsize As Integer, ByRef buttonSize As Integer, ByRef clickedButton As CType(sender, Button)) As Boolean
-        For i = 1 To gridsize - 1
-            If clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 1 Then
-                If clickedButton.BackColor = Color.White Then
-                    If TextBox1.Text = "Red" Then
-                        clickedButton.BackColor = Color.Red
+    'Function PlaceCounter(ByRef gridsize As Integer, ByRef buttonSize As Integer, ByRef clickedButton As CType(sender, Button)) As Boolean
+    '    For i = 1 To gridsize - 1
+    '        If clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 1 Then
+    '            If clickedButton.BackColor = Color.White Then
+    '                If TextBox1.Text = "Red" Then
+    '                    clickedButton.BackColor = Color.Red
 
-                    Else
-                        clickedButton.BackColor = Color.Blue
+    '                Else
+    '                    clickedButton.BackColor = Color.Blue
 
-                    End If
+    '                End If
 
-                End If
+    '            End If
 
-            ElseIf clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 2 Then
-                If clickedButton.BackColor = Color.White Then
+    '        ElseIf clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 2 Then
+    '            If clickedButton.BackColor = Color.White Then
 
-                End If
+    '            End If
 
-            End If
+    '        End If
 
-        Next
-    End Function
+    '    Next
+    'End Function
 End Class
