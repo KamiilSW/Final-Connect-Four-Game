@@ -14,62 +14,59 @@
                 button.BackColor = Color.White
                 AddHandler button.Click, AddressOf Button_Click
                 Panel1.Controls.Add(button)
-
             Next
 
         Next
     End Sub
-    Private Sub Button_Click(sender As Object, e As EventArgs)
-        PlaceCounter(sender)
+    Private Sub Button_Click(control As Object, e As EventArgs)
+        Dim button As Button = CType(control, Button)
+        MoveAndPlaceCounter(button)
+
     End Sub
 
-    Sub PlaceCounter(sender As Object)
-        Dim clickedButton As Button = CType(sender, Button)
-        If clickedButton.BackColor = Color.White Then
-            If TextBox1.Text = "Red" Then
-                clickedButton.BackColor = Color.Red
+    Sub PlaceCounter(button As Button)
+        If TextBox1.Text = "Red" Then
+            button.BackColor = Color.Red
 
-            Else
-                clickedButton.BackColor = Color.Blue
-
-            End If
-
-            If TextBox1.Text = "Red" Then
-                TextBox1.Text = "Blue"
-                TextBox1.ForeColor = Color.Blue
-
-            Else
-                TextBox1.Text = "Red"
-                TextBox1.ForeColor = Color.Red
-
-            End If
         Else
-            Exit Sub
+            button.BackColor = Color.Blue
+
+        End If
+
+        If TextBox1.Text = "Red" Then
+            TextBox1.Text = "Blue"
+            TextBox1.ForeColor = Color.Blue
+
+        Else
+            TextBox1.Text = "Red"
+            TextBox1.ForeColor = Color.Red
 
         End If
     End Sub
 
-    'Function PlaceCounter(ByRef gridsize As Integer, ByRef buttonSize As Integer, ByRef clickedButton As CType(sender, Button)) As Boolean
-    '    For i = 1 To gridsize - 1
-    '        If clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 1 Then
-    '            If clickedButton.BackColor = Color.White Then
-    '                If TextBox1.Text = "Red" Then
-    '                    clickedButton.BackColor = Color.Red
+    Sub MoveAndPlaceCounter(activeButton As Button)
+        Dim buttonSize As Size = activeButton.Size
+        Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
 
-    '                Else
-    '                    clickedButton.BackColor = Color.Blue
+        Dim buttonBelow As Button = Nothing
 
-    '                End If
+        For Each ctrl As Control In Panel1.Controls
+            If TypeOf ctrl Is Button AndAlso ctrl.Location = desiredLocation Then
+                buttonBelow = CType(ctrl, Button)
+                Exit For
+            End If
+        Next
 
-    '            End If
+        If buttonBelow IsNot Nothing Then
+            If buttonBelow.BackColor <> Color.White Then
+                PlaceCounter(activeButton)
+            Else
+                MoveAndPlaceCounter(buttonBelow)
+            End If
+        Else
+            PlaceCounter(activeButton)
+        End If
 
-    '        ElseIf clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 2 Then
-    '            If clickedButton.BackColor = Color.White Then
+    End Sub
 
-    '            End If
-
-    '        End If
-
-    '    Next
-    'End Function
 End Class
