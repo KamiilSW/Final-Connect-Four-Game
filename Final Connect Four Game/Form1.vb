@@ -25,22 +25,26 @@
 
     Sub PlaceCounter(sender As Object)
         Dim clickedButton As Button = CType(sender, Button)
+        If clickedButton.BackColor = Color.White Then
+            If TextBox1.Text = "Red" Then
+                clickedButton.BackColor = Color.Red
 
-        If TextBox1.Text = "Red" Then
-            clickedButton.BackColor = Color.Red
+            Else
+                clickedButton.BackColor = Color.Blue
 
+            End If
+
+            If TextBox1.Text = "Red" Then
+                TextBox1.Text = "Blue"
+                TextBox1.ForeColor = Color.Blue
+
+            Else
+                TextBox1.Text = "Red"
+                TextBox1.ForeColor = Color.Red
+
+            End If
         Else
-            clickedButton.BackColor = Color.Blue
-
-        End If
-
-        If TextBox1.Text = "Red" Then
-            TextBox1.Text = "Blue"
-            TextBox1.ForeColor = Color.Blue
-
-        Else
-            TextBox1.Text = "Red"
-            TextBox1.ForeColor = Color.Red
+            Exit Sub
 
         End If
     End Sub
