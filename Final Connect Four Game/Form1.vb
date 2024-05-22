@@ -11,6 +11,7 @@
                 button.Size = New Size(buttonSize, buttonSize)
                 button.Location = New Point(j * buttonSize, i * buttonSize)
                 button.Text = ""
+                button.BackColor = Color.White
                 AddHandler button.Click, AddressOf Button_Click
                 Panel1.Controls.Add(button)
 
@@ -21,8 +22,7 @@
     Private Sub Button_Click(sender As Object, e As EventArgs)
         Dim clickedButton As Button = CType(sender, Button)
 
-        If clickedButton Then
-            If TextBox1.Text = "Red" Then
+        If TextBox1.Text = "Red" Then
             clickedButton.BackColor = Color.Red
 
         Else
@@ -41,4 +41,27 @@
         End If
     End Sub
 
+    Function PlaceCounter(ByRef gridsize As Integer, ByRef buttonSize As Integer, ByRef clickedButton As CType(sender, Button)) As Boolean
+        For i = 1 To gridsize - 1
+            If clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 1 Then
+                If clickedButton.BackColor = Color.White Then
+                    If TextBox1.Text = "Red" Then
+                        clickedButton.BackColor = Color.Red
+
+                    Else
+                        clickedButton.BackColor = Color.Blue
+
+                    End If
+
+                End If
+
+            ElseIf clickedButton.Location.Y = buttonSize * (gridsize - i) And i = 2 Then
+                If clickedButton.BackColor = Color.White Then
+
+                End If
+
+            End If
+
+        Next
+    End Function
 End Class
