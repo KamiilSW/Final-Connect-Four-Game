@@ -28,7 +28,13 @@
                 button.BackColor = Color.Red
 
             Else
-                button.BackColor = Color.Blue
+                If AiButton = True Then
+                    AiPlay(button, gridsize)
+
+                Else
+                    button.BackColor = Color.Blue
+
+                End If
 
             End If
 
@@ -45,6 +51,11 @@
             Exit Sub
         End If
         'WinConditions(button, gridsize)
+    End Sub
+
+    Sub AiPlay(button As Button, gridsize As Integer)
+        Dim AiDrop As Integer = CInt(Math.Ceiling(Rnd() * gridsize)) + 1
+
     End Sub
     Function CheckIfButtonEmpty(button)
         If button.BackColor = Color.White Then
@@ -91,9 +102,9 @@
         PictureBox1.Hide()
         Button1.Hide()
         Button2.Hide()
-        Dim AiButton As Boolean = True
+        AiButton = True
     End Sub
-
+    Dim AiButton As Boolean = False
     'Sub WinConditions(button As Button, gridsize As Integer)
     '    Dim redCountersInARow As Integer = 0
     '    Dim blueCountersInARow As Integer = 0
