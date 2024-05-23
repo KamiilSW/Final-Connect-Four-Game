@@ -2,7 +2,6 @@
     Dim gridSize As Integer = 7 'Amount of rows and colums!
     Dim buttonSize As Integer = 70 ' Size of buttons!
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         For i As Integer = 0 To gridSize - 1
 
             For j As Integer = 0 To gridSize - 1
@@ -16,7 +15,9 @@
             Next
 
         Next
+
     End Sub
+
     Private Sub Button_Click(control As Object, e As EventArgs)
         Dim button As Button = CType(control, Button)
         MoveAndPlaceCounter(button, gridSize)
@@ -45,7 +46,7 @@
         Else
             Exit Sub
         End If
-        WinConditions(button, gridsize)
+        'WinConditions(button, gridsize)
     End Sub
 
     Function CheckIfButtonEmpty(button)
@@ -82,6 +83,13 @@
             PlaceCounter(activeButton, gridsize)
 
         End If
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        PictureBox1.Hide()
+        Button1.Hide()
+        Button2.Hide()
 
     End Sub
 
