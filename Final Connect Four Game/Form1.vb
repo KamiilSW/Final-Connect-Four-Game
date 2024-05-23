@@ -25,24 +25,36 @@
     End Sub
 
     Sub PlaceCounter(button As Button)
-        If TextBox1.Text = "Red" Then
-            button.BackColor = Color.Red
+        If CheckIfButtonEmpty(button) = True Then
+            If TextBox1.Text = "Red" Then
+                button.BackColor = Color.Red
 
+            Else
+                button.BackColor = Color.Blue
+
+            End If
+
+            If TextBox1.Text = "Red" Then
+                TextBox1.Text = "Blue"
+                TextBox1.ForeColor = Color.Blue
+
+            Else
+                TextBox1.Text = "Red"
+                TextBox1.ForeColor = Color.Red
+
+            End If
         Else
-            button.BackColor = Color.Blue
-
-        End If
-
-        If TextBox1.Text = "Red" Then
-            TextBox1.Text = "Blue"
-            TextBox1.ForeColor = Color.Blue
-
-        Else
-            TextBox1.Text = "Red"
-            TextBox1.ForeColor = Color.Red
-
+            Exit Sub
         End If
     End Sub
+
+    Function CheckIfButtonEmpty(button)
+        If button.BackColor = Color.White Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
     Sub MoveAndPlaceCounter(activeButton As Button)
         Dim buttonSize As Size = activeButton.Size
