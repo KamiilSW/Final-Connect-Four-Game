@@ -17,13 +17,11 @@
         Next
 
     End Sub
-
     Private Sub Button_Click(control As Object, e As EventArgs)
         Dim button As Button = CType(control, Button)
         MoveAndPlaceCounter(button, gridSize)
 
     End Sub
-
     Sub PlaceCounter(button As Button, gridsize As Integer)
         If CheckIfButtonEmpty(button) = True Then
             If TextBox1.Text = "Red" Then
@@ -48,7 +46,6 @@
         End If
         'WinConditions(button, gridsize)
     End Sub
-
     Function CheckIfButtonEmpty(button)
         If button.BackColor = Color.White Then
             Return True
@@ -56,7 +53,6 @@
             Return False
         End If
     End Function
-
     Sub MoveAndPlaceCounter(activeButton As Button, gridsize As Integer)
         Dim buttonSize As Size = activeButton.Size
         Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
@@ -85,20 +81,18 @@
         End If
 
     End Sub
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         PictureBox1.Hide()
         Button1.Hide()
         Button2.Hide()
-
+        Dim friendButton As Boolean = True
     End Sub
-
-
-
-
-
-
-
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        PictureBox1.Hide()
+        Button1.Hide()
+        Button2.Hide()
+        Dim AiButton As Boolean = True
+    End Sub
 
     'Sub WinConditions(button As Button, gridsize As Integer)
     '    Dim redCountersInARow As Integer = 0
