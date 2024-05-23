@@ -1,8 +1,7 @@
 ﻿Public Class Form1
-
+    Dim gridSize As Integer = 7 'Amount of rows and colums!
+    Dim buttonSize As Integer = 70 ' Size of buttons!
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim gridSize As Integer = 7 'Amount of rows and colums!
-        Dim buttonSize As Integer = 70 ' Size of buttons!
 
         For i As Integer = 0 To gridSize - 1
 
@@ -20,11 +19,11 @@
     End Sub
     Private Sub Button_Click(control As Object, e As EventArgs)
         Dim button As Button = CType(control, Button)
-        MoveAndPlaceCounter(button)
+        MoveAndPlaceCounter(button, gridSize)
 
     End Sub
 
-    Sub PlaceCounter(button As Button)
+    Sub PlaceCounter(button As Button, gridsize As Integer)
         If CheckIfButtonEmpty(button) = True Then
             If TextBox1.Text = "Red" Then
                 button.BackColor = Color.Red
@@ -46,6 +45,7 @@
         Else
             Exit Sub
         End If
+        WinConditions(button, gridsize)
     End Sub
 
     Function CheckIfButtonEmpty(button)
@@ -56,29 +56,101 @@
         End If
     End Function
 
-    Sub MoveAndPlaceCounter(activeButton As Button)
+    Sub MoveAndPlaceCounter(activeButton As Button, gridsize As Integer)
         Dim buttonSize As Size = activeButton.Size
         Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
-
         Dim buttonBelow As Button = Nothing
 
         For Each ctrl As Control In Panel1.Controls
             If TypeOf ctrl Is Button AndAlso ctrl.Location = desiredLocation Then
                 buttonBelow = CType(ctrl, Button)
                 Exit For
+
             End If
+
         Next
 
         If buttonBelow IsNot Nothing Then
             If buttonBelow.BackColor <> Color.White Then
-                PlaceCounter(activeButton)
+                PlaceCounter(activeButton, gridsize)
+
             Else
-                MoveAndPlaceCounter(buttonBelow)
+                MoveAndPlaceCounter(buttonBelow, gridsize)
+
             End If
         Else
-            PlaceCounter(activeButton)
+            PlaceCounter(activeButton, gridsize)
+
         End If
 
     End Sub
+
+
+
+
+
+
+
+
+    'Sub WinConditions(button As Button, gridsize As Integer)
+    '    Dim redCountersInARow As Integer = 0
+    '    Dim blueCountersInARow As Integer = 0
+    '    Dim redRowStarted As Boolean = False
+    '    Dim blueRowStarted As Boolean = False
+    '    Dim upperLimit As Integer = (gridsize * gridsize)
+    '    Dim iteration As Integer = 0
+
+    '    For i = 1 To upperLimit
+    '        For Each ctrl As Control In Panel1.Controls
+    '            If TypeOf ctrl Is Button Then
+    '                If ctrl.BackColor = Color.Red Then
+    '                    redCountersInARow += 1
+    '                    redRowStarted = True
+    '                    iteration += 1
+
+    '                ElseIf ctrl.BackColor <> Color.Red And redRowStarted = False Then
+    '                    redCountersInARow = 0
+    '                    iteration += 1
+
+    '                ElseIf ctrl.BackColor <> Color.Red And redRowStarted = True Then
+    '                    redCountersInARow = 0
+    '                    iteration += 1
+
+    '                End If
+
+    '                If ctrl.BackColor = Color.Blue Then
+    '                    blueCountersInARow += 1
+    '                    blueRowStarted = True
+    '                    iteration += 1
+
+    '                ElseIf ctrl.BackColor <> Color.Blue And blueRowStarted = False Then
+    '                    blueCountersInARow = 0
+    '                    iteration += 1
+
+    '                ElseIf ctrl.BackColor <> Color.Blue And blueRowStarted = True Then
+    '                    blueCountersInARow = 0
+    '                    iteration += 1
+
+    '                End If
+
+    '                If iteration > gridsize Then
+    '                    redCountersInARow = 0
+    '                    blueCountersInARow = 0
+    '                    iteration = 1
+    '                End If
+
+    '                If redCountersInARow >= 4 Then
+    '                    MessageBox.Show("Red wins!")
+    '                    Exit Sub
+    '                ElseIf blueCountersInARow >= 4 Then
+    '                    MessageBox.Show("Blue wins!")
+    '                    Exit Sub
+    '                End If
+
+    '            End If
+
+    '        Next
+    '    Next
+    'End Sub
 
 End Class
