@@ -114,30 +114,32 @@
                     If ctrl.BackColor = Color.Red Then
                         redCountersInARow += 1
                         redIteration += 1
-                        If redIteration >= 6 Then
+                        If redIteration >= 7 Then
                             redIteration = 0
                             redCountersInARow = 0
                         End If
                     ElseIf ctrl.BackColor <> Color.Red Then
                         redCountersInARow = 0
                         redIteration += 1
-                        If redIteration >= 6 Then
+                        If redIteration >= 7 Then
                             redIteration = 0
+                            redCountersInARow = 0
                         End If
                     End If
 
                     If ctrl.BackColor = Color.Blue Then
                         blueCountersInARow += 1
                         redIteration += 1
-                        If blueIteration >= 6 Then
+                        If blueIteration >= 7 Then
                             blueIteration = 0
                             blueCountersInARow = 0
                         End If
                     ElseIf ctrl.BackColor <> Color.Blue Then
                         blueCountersInARow = 0
                         blueIteration += 1
-                        If blueIteration >= 6 Then
+                        If blueIteration >= 7 Then
                             blueIteration = 0
+                            blueCountersInARow = 0
                         End If
                     End If
 
