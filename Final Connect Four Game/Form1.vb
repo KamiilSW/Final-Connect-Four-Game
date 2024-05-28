@@ -25,9 +25,9 @@
         Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
         Dim buttonBelow As Button = Nothing
 
-        For Each ctrl As Control In Panel1.Controls
-            If TypeOf ctrl Is Button AndAlso ctrl.Location = desiredLocation Then
-                buttonBelow = CType(ctrl, Button)
+        For Each button As Control In Panel1.Controls
+            If TypeOf button Is Button AndAlso button.Location = desiredLocation Then
+                buttonBelow = CType(button, Button)
                 Exit For
 
             End If
@@ -96,7 +96,6 @@
         PictureBox1.Hide()
         Button1.Hide()
         Button2.Hide()
-        Dim friendButton As Boolean = True
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         PictureBox1.Hide()
@@ -109,35 +108,35 @@
 
     Sub CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
         For i = 1 To upperLimit
-            For Each ctrl As Control In Panel1.Controls
-                If TypeOf ctrl Is Button Then
-                    If ctrl.BackColor = Color.Red Then
+            For Each button As Control In Panel1.Controls
+                If TypeOf button Is Button Then
+                    If button.BackColor = Color.Red Then
                         redCountersInARow += 1
                         redIteration += 1
-                        If redIteration > 7 Then
+                        If redIteration > gridSize Then
                             redIteration = 1
                             redCountersInARow = 0
                         End If
-                    ElseIf ctrl.BackColor <> Color.Red Then
+                    ElseIf button.BackColor <> Color.Red Then
                         redCountersInARow = 0
                         redIteration += 1
-                        If redIteration > 7 Then
+                        If redIteration > gridSize Then
                             redIteration = 1
                             redCountersInARow = 0
                         End If
                     End If
 
-                    If ctrl.BackColor = Color.Blue Then
+                    If button.BackColor = Color.Blue Then
                         blueCountersInARow += 1
                         redIteration += 1
-                        If blueIteration > 7 Then
+                        If blueIteration > gridSize Then
                             blueIteration = 1
                             blueCountersInARow = 0
                         End If
-                    ElseIf ctrl.BackColor <> Color.Blue Then
+                    ElseIf button.BackColor <> Color.Blue Then
                         blueCountersInARow = 0
                         blueIteration += 1
-                        If blueIteration > 7 Then
+                        If blueIteration > gridSize Then
                             blueIteration = 1
                             blueCountersInARow = 0
                         End If
