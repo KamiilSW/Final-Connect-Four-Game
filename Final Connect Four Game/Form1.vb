@@ -20,41 +20,6 @@
         MoveAndPlaceCounter(button, gridSize)
 
     End Sub
-    Sub PlaceCounter(button As Button, gridsize As Integer)
-        If CheckIfButtonEmpty(button) = True Then
-            If TextBox1.Text = "Red" Then
-                button.BackColor = Color.Red
-            Else
-                If AiButton = True Then
-                    AiPlay(button, gridsize)
-                Else
-                    button.BackColor = Color.Blue
-                End If
-            End If
-
-            If TextBox1.Text = "Red" Then
-                TextBox1.Text = "Blue"
-                TextBox1.ForeColor = Color.Blue
-            Else
-                TextBox1.Text = "Red"
-                TextBox1.ForeColor = Color.Red
-            End If
-        Else
-            Exit Sub
-        End If
-    End Sub
-
-    Sub AiPlay(button As Button, gridsize As Integer)
-        Dim AiDrop As Integer = CInt(Math.Ceiling(Rnd() * gridsize)) + 1
-
-    End Sub
-    Function CheckIfButtonEmpty(button)
-        If button.BackColor = Color.White Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
     Sub MoveAndPlaceCounter(activeButton As Button, gridsize As Integer)
         Dim buttonSize As Size = activeButton.Size
         Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
@@ -83,6 +48,50 @@
         End If
         WinConditons(activeButton, gridsize)
     End Sub
+    Sub PlaceCounter(button As Button, gridsize As Integer)
+        If CheckIfButtonEmpty(button) = True Then
+            If TextBox1.Text = "Red" Then
+                button.BackColor = Color.Red
+            Else
+                If AiButton = True Then
+                    AiPlay(button, gridsize)
+                Else
+                    button.BackColor = Color.Blue
+                End If
+            End If
+
+            If TextBox1.Text = "Red" Then
+                TextBox1.Text = "Blue"
+                TextBox1.ForeColor = Color.Blue
+            Else
+                TextBox1.Text = "Red"
+                TextBox1.ForeColor = Color.Red
+            End If
+        Else
+            Exit Sub
+        End If
+    End Sub
+    Function CheckIfButtonEmpty(button)
+        If button.BackColor = Color.White Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Sub AiPlay(button As Button, gridsize As Integer)
+        Dim AiDrop As Integer = CInt(Math.Ceiling(Rnd() * gridsize)) + 1
+
+    End Sub
+    Sub WinConditons(button As Button, gridsize As Integer)
+        Dim upperLimit As Integer = gridsize ^ 2
+        Dim redCountersInARow As Integer = 0
+        Dim blueCountersInARow As Integer = 0
+        Dim redIteration As Integer = 0
+        Dim blueIteration As Integer = 0
+
+        CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
+
+    End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         PictureBox1.Hide()
         Button1.Hide()
@@ -97,16 +106,7 @@
     End Sub
     Dim AiButton As Boolean = False
 
-    Sub WinConditons(button As Button, gridsize As Integer)
-        Dim upperLimit As Integer = gridsize ^ 2
-        Dim redCountersInARow As Integer = 0
-        Dim blueCountersInARow As Integer = 0
-        Dim redIteration As Integer = 0
-        Dim blueIteration As Integer = 0
 
-        CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
-
-    End Sub
     Sub CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
         For i = 1 To upperLimit
             For Each ctrl As Control In Panel1.Controls
@@ -114,15 +114,15 @@
                     If ctrl.BackColor = Color.Red Then
                         redCountersInARow += 1
                         redIteration += 1
-                        If redIteration >= 7 Then
-                            redIteration = 0
+                        If redIteration > 7 Then
+                            redIteration = 1
                             redCountersInARow = 0
                         End If
                     ElseIf ctrl.BackColor <> Color.Red Then
                         redCountersInARow = 0
                         redIteration += 1
-                        If redIteration >= 7 Then
-                            redIteration = 0
+                        If redIteration > 7 Then
+                            redIteration = 1
                             redCountersInARow = 0
                         End If
                     End If
@@ -130,15 +130,15 @@
                     If ctrl.BackColor = Color.Blue Then
                         blueCountersInARow += 1
                         redIteration += 1
-                        If blueIteration >= 7 Then
-                            blueIteration = 0
+                        If blueIteration > 7 Then
+                            blueIteration = 1
                             blueCountersInARow = 0
                         End If
                     ElseIf ctrl.BackColor <> Color.Blue Then
                         blueCountersInARow = 0
                         blueIteration += 1
-                        If blueIteration >= 7 Then
-                            blueIteration = 0
+                        If blueIteration > 7 Then
+                            blueIteration = 1
                             blueCountersInARow = 0
                         End If
                     End If
