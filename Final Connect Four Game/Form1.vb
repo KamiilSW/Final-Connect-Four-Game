@@ -17,6 +17,9 @@
     End Sub
     Private Sub Button_Click(control As Object, e As EventArgs)
         Dim button As Button = CType(control, Button)
+        If AiButton = True Then
+
+        End If
         MoveAndPlaceCounter(button, gridSize)
 
     End Sub
@@ -81,6 +84,11 @@
     Sub AiPlay(button As Button, gridsize As Integer)
         Dim AiDrop As Integer = CInt(Math.Ceiling(Rnd() * gridsize)) + 1
 
+        For Each drop As Control In Panel1.Controls
+            If drop.Location.X * buttonSize = drop.Location.X * AiDrop Then
+                MoveAndPlaceCounter(drop, gridsize)
+            End If
+        Next
     End Sub
     Sub WinConditons(button As Button, gridsize As Integer)
         Dim upperLimit As Integer = gridsize ^ 2
@@ -102,6 +110,8 @@
         Button1.Hide()
         Button2.Hide()
         AiButton = True
+
+        AiPlay(sender, gridSize)
     End Sub
     Dim AiButton As Boolean = False
 
