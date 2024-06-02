@@ -17,9 +17,6 @@
     End Sub
     Private Sub Button_Click(control As Object, e As EventArgs)
         Dim button As Button = CType(control, Button)
-        If AiButton = True Then
-
-        End If
         MoveAndPlaceCounter(button, gridSize)
 
     End Sub
@@ -27,7 +24,11 @@
         Dim buttonSize As Size = activeButton.Size
         Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
         Dim buttonBelow As Button = Nothing
+        CheckIfAITurn()
 
+        If AITurn = True Then
+            AiPlay(activeButton, gridsize)
+        End If
         For Each button As Control In Panel1.Controls
             If TypeOf button Is Button AndAlso button.Location = desiredLocation Then
                 buttonBelow = CType(button, Button)
@@ -73,6 +74,15 @@
         Else
             Exit Sub
         End If
+    End Sub
+    Dim AITurn As Boolean = False
+    Sub CheckIfAITurn()
+        If AITurn = False Then
+            AITurn = True
+        Else
+            AITurn = False
+        End If
+
     End Sub
     Function CheckIfButtonEmpty(button)
         If button.BackColor = Color.White Then
