@@ -96,7 +96,9 @@
 
         For Each drop As Control In Panel1.Controls
             If drop.Location.X * buttonSize = drop.Location.X * AiDrop Then
+                Dim AIActive As Boolean = True
                 MoveAndPlaceCounter(drop, gridsize)
+                AIActive = False
             End If
         Next
     End Sub
