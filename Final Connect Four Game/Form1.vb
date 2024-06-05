@@ -24,11 +24,11 @@
         Dim buttonSize As Size = activeButton.Size
         Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
         Dim buttonBelow As Button = Nothing
-        CheckIfAITurn()
+        'CheckIfAITurn()
 
-        If AITurn = True Then
-            AiPlay(activeButton, gridsize)
-        End If
+        'If AITurn = True Then
+        'AiPlay(activeButton, gridsize)
+        'End If
         For Each button As Control In Panel1.Controls
             If TypeOf button Is Button AndAlso button.Location = desiredLocation Then
                 buttonBelow = CType(button, Button)
@@ -109,7 +109,8 @@
         Dim redIteration As Integer = 0
         Dim blueIteration As Integer = 0
 
-        CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
+        CheckVertical(button)
+        'CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
 
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -127,6 +128,31 @@
     End Sub
     Dim AiButton As Boolean = False
 
+    Sub CheckVertical(activeButton)
+        Dim buttonSize As Size = activeButton.Size
+        Dim desiredLocation As Point = New Point(activeButton.Location.X, activeButton.Location.Y + buttonSize.Height)
+        Dim buttonBelow As Button = Nothing
+        Dim verticalRow As Integer = 1
+
+        For Each verticalButton As Control In Panel1.Controls
+            If TypeOf verticalButton Is Button AndAlso verticalButton.Location = desiredLocation Then
+                buttonBelow = CType(verticalButton, Button)
+                Exit For
+
+            End If
+        Next
+
+        If TypeOf buttonBelow IsNot Button Then
+
+        Else
+            If buttonBelow.BackColor = activeButton.BackColor Then
+                verticalRow += 1
+            End If
+        End If
+        If verticalRow = 4 Then
+            MessageBox.Show("Winner!")
+        End If
+    End Sub
 
     Sub CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
         For i = 1 To upperLimit
