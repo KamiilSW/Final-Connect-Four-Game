@@ -33,18 +33,14 @@
             If TypeOf button Is Button AndAlso button.Location = desiredLocation Then
                 buttonBelow = CType(button, Button)
                 Exit For
-
             End If
-
         Next
 
         If buttonBelow IsNot Nothing Then
             If buttonBelow.BackColor <> Color.White Then
                 PlaceCounter(activeButton, gridsize)
-
             Else
                 MoveAndPlaceCounter(buttonBelow, gridsize)
-
             End If
         Else
             PlaceCounter(activeButton, gridsize)
@@ -111,7 +107,6 @@
 
         CheckVertical(button)
         'CheckHorizontal(upperLimit, redCountersInARow, blueCountersInARow, redIteration, blueIteration)
-
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         PictureBox1.Hide()
@@ -138,7 +133,6 @@
             If TypeOf verticalButton Is Button AndAlso verticalButton.Location = desiredLocation Then
                 buttonBelow = CType(verticalButton, Button)
                 Exit For
-
             End If
         Next
 
